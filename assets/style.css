@@ -1,0 +1,399 @@
+:root {
+  --bg: #14181d;
+  --panel: #1b2129;
+  --panel-2: #20272f;
+  --line: #2d3641;
+  --text: #cfd8e3;
+  --dim: #7c8896;
+  --amber: #ffb454;
+  --green: #7fd17f;
+  --red: #ff7a7a;
+  --blue: #6cb2ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(rgba(255, 180, 84, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 180, 84, 0.015) 1px, transparent 1px),
+    var(--bg);
+  background-size: 28px 28px;
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13.5px;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 20px 60px;
+}
+
+/* ── chrome ───────────────────────────────────────────── */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 12px 18px;
+  margin-bottom: 18px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+  color: var(--amber);
+}
+
+.logo::before {
+  content: '▦ ';
+}
+
+.topbar .sub {
+  color: var(--dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.topbar .spacer {
+  flex: 1;
+}
+
+.topbar .who {
+  color: var(--dim);
+  font-size: 0.8rem;
+}
+
+.led {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+
+.led.red {
+  background: var(--red);
+  box-shadow: 0 0 6px var(--red);
+}
+
+button {
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+button.primary {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #1a1408;
+  font-weight: 700;
+}
+
+button.primary:hover {
+  filter: brightness(1.1);
+  color: #1a1408;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+/* ── login ────────────────────────────────────────────── */
+
+.login-wrap {
+  display: grid;
+  place-items: center;
+  min-height: 70vh;
+}
+
+.login-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 28px 30px 30px;
+  width: min(360px, 92vw);
+}
+
+.login-card h1 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  color: var(--amber);
+}
+
+.login-card p {
+  margin: 0 0 20px;
+  color: var(--dim);
+  font-size: 0.78rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.field label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.field input,
+.field select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 9px 10px;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: 1px solid var(--amber);
+  border-color: var(--amber);
+}
+
+/* ── layout ───────────────────────────────────────────── */
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.tab {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 9px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 130px;
+}
+
+.tab:hover {
+  border-color: var(--amber);
+}
+
+.tab.on {
+  border-color: var(--amber);
+  background: var(--panel-2);
+}
+
+.tab .code {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.tab.on .code {
+  color: var(--amber);
+}
+
+.tab .meta {
+  font-size: 0.7rem;
+  color: var(--dim);
+}
+
+.tab .meta .warn {
+  color: var(--red);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 330px;
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.panel-head .count {
+  color: var(--amber);
+}
+
+/* ── tables ───────────────────────────────────────────── */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+th {
+  text-align: left;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  font-weight: 500;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+td {
+  padding: 7px 14px;
+  border-bottom: 1px solid rgba(45, 54, 65, 0.55);
+}
+
+tr:hover td {
+  background: rgba(255, 180, 84, 0.04);
+}
+
+td.num {
+  text-align: right;
+  font-weight: 600;
+}
+
+th.num {
+  text-align: right;
+}
+
+.low td {
+  color: var(--red);
+}
+
+.pill {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  padding: 1px 8px;
+  border-radius: 2px;
+}
+
+.pill.receipt {
+  color: var(--green);
+}
+
+.pill.shipment {
+  color: var(--blue);
+}
+
+.pill.adjustment {
+  color: var(--amber);
+}
+
+.pill.transfer {
+  color: var(--dim);
+}
+
+.qty-pos {
+  color: var(--green);
+}
+
+.qty-neg {
+  color: var(--red);
+}
+
+/* ── movement form / feed ─────────────────────────────── */
+
+.form-body {
+  padding: 14px;
+}
+
+.feed {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.feed li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  border-bottom: 1px solid rgba(45, 54, 65, 0.4);
+}
+
+.feed .t {
+  color: var(--dim);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.feed .spacer {
+  flex: 1;
+}
+
+.msg {
+  padding: 10px 14px;
+  font-size: 0.8rem;
+}
+
+.msg.err {
+  color: var(--red);
+}
+
+.msg.ok {
+  color: var(--green);
+}
+
+.muted {
+  color: var(--dim);
+}
+
+footer {
+  margin-top: 26px;
+  color: var(--dim);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
