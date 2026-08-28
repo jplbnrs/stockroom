@@ -17,6 +17,8 @@ import bcrypt
 import jwt
 import psycopg
 from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://localhost/stockroom")
@@ -254,10 +256,14 @@ def record_movement(body: MovementRequest, user: dict = Depends(current_user)):
 
 app.include_router(api)
 
-# Local dev only: serve the dashboard from the repo root. On Vercel the
-# static files are served by the CDN and this branch never runs.
-if os.environ.get("VERCEL") is None:
-    from fastapi.staticfiles import StaticFiles
+# The dashboard is served by the app itself, everywhere: locally, on the
+# AWS composite, and on Vercel — whose FastAPI runtime routes every request
+# to the app and promotes StaticFiles mounts to its CDN at build time. Only
+# assets/ is mounted (never the repo root, which would publish db/ and api/).
+ROOT = Path(__file__).resolve().parent.parent
+app.mount("/assets", StaticFiles(directory=ROOT / "assets"), name="assets")
 
-    root = Path(__file__).resolve().parent.parent
-    app.mount("/", StaticFiles(directory=root, html=True), name="static")
+
+@app.get("/", include_in_schema=False)
+def dashboard():
+    return FileResponse(ROOT / "index.html")
