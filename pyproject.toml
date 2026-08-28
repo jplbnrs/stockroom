@@ -1,2 +1,15 @@
+[project]
+name = "stockroom"
+version = "0.1.0"
+description = "Warehouse ops console: stock levels + movement ledger on FastAPI"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115",
+  "psycopg[binary]>=3.2",
+  "PyJWT>=2.9",
+  "bcrypt>=4.2",
+  "uvicorn>=0.30",
+]
+
 [tool.vercel]
 entrypoint = "api.index:app"
