@@ -34,5 +34,7 @@ Import the repo into Vercel (no framework preset). Set env vars:
 - `DATABASE_URL` — the Neon pooled connection string
 - `APP_SECRET` — long random string for JWT signing
 
-`vercel.json` routes `/api/*` to the FastAPI function; everything else is
-served as static files.
+Vercel's FastAPI runtime routes every request to the app (`pyproject.toml` pins the
+entrypoint to `api.index:app`); the app serves `/` and `/assets` itself, which Vercel
+promotes to its CDN at build time. No `vercel.json` rewrites — a rewrite hands the
+function the destination path and every `/api/*` call 404s.
